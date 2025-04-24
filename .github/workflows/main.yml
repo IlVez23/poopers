@@ -15,5 +15,5 @@ jobs:
           lfs: true
       - name: Push to hub
         env:
-          HF_TOKEN: ${{ secrets.hf_token }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: git push https://IlVeZ:$HF_TOKEN@huggingface.co/spaces/IlVeZ/poopers main
