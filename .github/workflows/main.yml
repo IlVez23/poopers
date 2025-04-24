@@ -15,13 +15,8 @@ jobs:
           lfs: true
       - name: Configure Git
         run: |
-          git config --global user.email "andreaverba@gmail.com" # Replace with your email
-          git config --global user.name "IlVez23"   # Replace with your GitHub username
-      - name: Add Remote Origin
-        env:
-          GITHUB_REPO_URL: ${{ github.event.repository.ssh_url }} # Or use HTTPS URL
-        run: |
-          git remote add origin "${{ env.GITHUB_REPO_URL }}"
+          git config --global user.email "andreaverba@gmail.com" 
+          git config --global user.name "IlVez23"  
       - name: Set Git Credentials
         env:
           HF_USERNAME: IlVeZ
