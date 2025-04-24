@@ -17,6 +17,13 @@ jobs:
         run: |
           git config --global user.email "andreaverba@gmail.com" # Replace with your email
           git config --global user.name "IlVez23"   # Replace with your GitHub username
+      - name: Debug HF_TOKEN (Temporary - REMOVE LATER!)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "HF_TOKEN (masked): ${{ env.HF_TOKEN }}"
+          # This next line attempts to print the token with spaces to bypass masking
+          echo "HF_TOKEN (attempt to show): $(echo "$HF_TOKEN" | sed 's/./& /g')"
       - name: Set Git Credentials
         env:
           HF_USERNAME: IlVeZ
