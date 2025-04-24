@@ -27,5 +27,14 @@ jobs:
           echo "https://${{ env.HF_USERNAME }}:${{ env.HF_TOKEN }}@huggingface.co" > ~/.git-credentials
       - name: Push to hub
         run: |
-          git remote set-url origin "${{ env.REPO_URL }}"
+          # Clone the Hugging Face repository
+          git clone "${{ env.REPO_URL }}" hf_repo
+          cd hf_repo
+          # Copy all files from the current directory to the Hugging Face repo
+          cp -r ../* .
+          cp -r ../.gitattributes .
+          # Add and commit changes
+          git add .
+          git commit -m "Update from GitHub Actions"
+          # Push to Hugging Face
           git push origin main
