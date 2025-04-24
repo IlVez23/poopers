@@ -17,12 +17,15 @@ jobs:
         run: |
           git config --global user.email "andreaverba@gmail.com" # Replace with your email
           git config --global user.name "IlVez23"   # Replace with your GitHub username
-      - name: Set Remote URL with Token
+      - name: Set Git Credentials
         env:
           HF_USERNAME: IlVeZ
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPO_NAME: poopers
+          REPO_URL: https://huggingface.co/spaces/IlVeZ/poopers
         run: |
-          git remote set-url origin "https://${{ env.HF_USERNAME }}:${{ env.HF_TOKEN }}@huggingface.co/spaces/${{ env.HF_USERNAME }}/${{ env.REPO_NAME }}"
+          git config --global credential.helper store
+          echo "https://${{ env.HF_USERNAME }}:${{ env.HF_TOKEN }}@huggingface.co" > ~/.git-credentials
       - name: Push to hub
-        run: git push origin main
+        run: |
+          git remote set-url origin "${{ env.REPO_URL }}"
+          git push origin main
