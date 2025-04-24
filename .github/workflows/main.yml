@@ -8,6 +8,10 @@ on:
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
+    env:
+      HF_USERNAME: IlVeZ
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      REPO_URL: https://huggingface.co/spaces/IlVeZ/poopers
     steps:
       - uses: actions/checkout@v3
         with:
@@ -18,10 +22,6 @@ jobs:
           git config --global user.email "andreaverba@gmail.com" 
           git config --global user.name "IlVez23"  
       - name: Set Git Credentials
-        env:
-          HF_USERNAME: IlVeZ
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPO_URL: https://huggingface.co/spaces/IlVeZ/poopers
         run: |
           git config --global credential.helper store
           echo "https://${{ env.HF_USERNAME }}:${{ env.HF_TOKEN }}@huggingface.co" > ~/.git-credentials
