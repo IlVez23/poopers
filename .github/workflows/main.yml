@@ -15,7 +15,7 @@ jobs:
           lfs: true
       - name: Configure Git
         run: |
-          git config --global user.email "andreaverba@gamil.com" # Replace with your email
+          git config --global user.email "andreaverba@gmail.com" # Replace with your email
           git config --global user.name "IlVez23"   # Replace with your GitHub username
       - name: Push to hub
         env:
