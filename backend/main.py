@@ -6,6 +6,7 @@ from datetime import datetime
 sys.path.insert(0, '/poopers')
 
 from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 import models 
@@ -15,6 +16,16 @@ from jose import jwt, JWTError
 
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 import os
 from dotenv import load_dotenv
 

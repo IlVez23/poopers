@@ -3,13 +3,15 @@ import streamlit as st
 import os
 from datetime import datetime
 
-# Get API_URL from environment variable
-API_URL = os.getenv("API_URL", "https://poopers-backend.onrender.com")
-st.write(f"Debug: API_URL is set to: {API_URL}")  # Debug line
+# Hardcode the API URL
+API_URL = "https://poopers-backend.onrender.com"
+st.write(f"Debug: Using API URL: {API_URL}")  # Debug line
 
 def login(username, password):
     try:
-        response = requests.post(f"{API_URL}/login", params={"username": username, "password": password})
+        full_url = f"{API_URL}/login"
+        st.write(f"Debug: Attempting to connect to: {full_url}")  # Debug line
+        response = requests.post(full_url, params={"username": username, "password": password})
         if response.status_code == 200:
             token = response.json()["access_token"]
             st.session_state["token"] = token
@@ -22,7 +24,9 @@ def login(username, password):
 
 def signup(username, password):
     try:
-        response = requests.post(f"{API_URL}/signup", params={"username": username, "password": password})
+        full_url = f"{API_URL}/signup"
+        st.write(f"Debug: Attempting to connect to: {full_url}")  # Debug line
+        response = requests.post(full_url, params={"username": username, "password": password})
         if response.status_code == 200:
             st.success("Signup successful!")
             return response.json()
