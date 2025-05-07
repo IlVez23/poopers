@@ -2,26 +2,35 @@ import requests
 import streamlit as st
 import os
 from datetime import datetime
-API_URL = os.getenv("API_URL", "http://localhost:8000")
 
+# Get API_URL from environment variable
+API_URL = os.getenv("API_URL", "https://poopers-backend.onrender.com")
+st.write(f"Debug: API_URL is set to: {API_URL}")  # Debug line
 
 def login(username, password):
-    response = requests.post(f"{API_URL}/login", params={"username": username, "password": password})
-    if response.status_code == 200:
-        token = response.json()["access_token"]
-        st.session_state["token"] = token
-        st.session_state["logged_in"] = True
-        st.success("Login successful")
-    else:
-        st.error("Login failed")
+    try:
+        response = requests.post(f"{API_URL}/login", params={"username": username, "password": password})
+        if response.status_code == 200:
+            token = response.json()["access_token"]
+            st.session_state["token"] = token
+            st.session_state["logged_in"] = True
+            st.success("Login successful")
+        else:
+            st.error(f"Login failed: {response.text}")
+    except Exception as e:
+        st.error(f"Login error: {str(e)}")
 
 def signup(username, password):
-    response = requests.post(f"{API_URL}/signup", params={"username": username, "password": password})
-    if response.status_code == 200:
-        st.success("Signup successful!")
-        return response.json()
-    else:
-        st.error("Signup failed")
+    try:
+        response = requests.post(f"{API_URL}/signup", params={"username": username, "password": password})
+        if response.status_code == 200:
+            st.success("Signup successful!")
+            return response.json()
+        else:
+            st.error(f"Signup failed: {response.text}")
+            return None
+    except Exception as e:
+        st.error(f"Signup error: {str(e)}")
         return None
 
 
